@@ -372,11 +372,11 @@ object Plugin extends sbt.Plugin with DispatchHandlers {
         val sv = Map(AttrNames.scalas -> scalaVersions.map(VersionAttr(_)))
         if (plugin) sv ++ Map(AttrNames.sbtVersion-> Seq(VersionAttr(sbtVersion))) else sv
     },
-    ensureLicenses <<= ensureLicensesTask,
+    //ensureLicenses <<= ensureLicensesTask,
     ensureCredentials <<= ensureCredentialsTask,
     ensureBintrayPackageExists <<= ensurePackageTask,
     publishVersionAttributes <<= publishVersionAttributesTask,
-    unpublish in bintray <<= unpublishTask.dependsOn(ensureBintrayPackageExists, ensureLicenses),
+    unpublish in bintray <<= unpublishTask.dependsOn(ensureBintrayPackageExists), //, ensureLicenses),
     remoteSign in bintray <<= remoteSignTask,
     syncMavenCentral in bintray <<= syncMavenCentralTask
   ) ++ Seq(
@@ -384,7 +384,7 @@ object Plugin extends sbt.Plugin with DispatchHandlers {
     credentials <++= credentials in bintray,
     publishTo <<= publishTo in bintray,
     // We attach this to publish configruation, so that publish-signed in pgp plugin can work.
-    publishConfiguration <<= publishConfiguration.dependsOn(ensureBintrayPackageExists, ensureLicenses), 
+    publishConfiguration <<= publishConfiguration.dependsOn(ensureBintrayPackageExists), //, ensureLicenses), 
     publish <<= publishWithVersionAttrs
   )
 
