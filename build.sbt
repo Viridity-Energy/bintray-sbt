@@ -1,4 +1,4 @@
-organization := "me.lessis"
+organization := "com.viridityenergy"
 
 name := "bintray-sbt"
 
@@ -42,3 +42,5 @@ externalResolvers in LsKeys.lsync := (resolvers in bintray.Keys.bintray).value
 seq(bintraySettings:_*)
 
 crossBuildingSettings
+
+publishMavenStyle := true
